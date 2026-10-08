@@ -17,9 +17,10 @@ matches `VERSION` (what `mini --version` prints).
   Known gaps, all listed under Limitations in the README: the
   `Created:`/`Updated:` timestamps are fixed rather than real and
   aren't refreshed on save, a second `:header` stacks another block
-  instead of updating the one already there, and a login over 8
-  characters (or a file name over 51) pushes that row past the
-  80-column block.
+  instead of updating the one already there, and a file name over 51
+  characters would push that row past the 80-column block (no 42
+  project it's meant for comes close, and logins are always exactly
+  8 characters).
 
 ## 1.11.5 - 2026-09-18
 

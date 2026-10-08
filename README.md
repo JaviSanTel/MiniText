@@ -1046,10 +1046,11 @@ Mini is intentionally small. Some notable limitations:
 - `:header` always inserts, so running it on a file that already has
   a header stacks a second one on top instead of updating the one
   already there. `:u` undoes it as a single step.
-- The header's columns are aligned for a login of up to 8 characters
-  and a file name of up to 51: a longer one pushes that row past the
-  80-column block instead of being truncated to fit, leaving the
-  closing `*/` out of line with the rest.
+- The header's file-name column is aligned for a name of up to 51
+  characters, which every 42 project it's meant for stays well
+  within; a longer one would push that row past the 80-column block
+  rather than being truncated to fit. The login column needs no such
+  caveat: 42 issues logins of exactly 8 characters.
 
 ## License
 
