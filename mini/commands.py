@@ -146,7 +146,19 @@ class CommandMixin:
             self._save_all_tabs()
             self.running = False
 
-    def _read_command_line(self, prompt= "File name: "):
+    def _ask_on_command_line(self, prompt):
+        """`_read_command_line` with the prompt already on screen, for
+        the callers that ask for free-form text rather than a file
+        name: `_read_command_line` only draws it alongside what's been
+        typed so far, so without this first render an empty answer
+        would be asked for by a command line showing nothing at all -
+        and a chain of questions (`:configuser`'s login, then campus)
+        would look like it had silently stopped between them."""
+        self.status = prompt
+        self._render()
+        return self._read_command_line(prompt)
+
+    def _read_command_line(self, prompt="File name: "):
         value = ""
         while True:
             key = terminal.read_key()
@@ -512,15 +524,13 @@ class CommandMixin:
             self.line += len(header)
             self.status = "Inserted header"
         elif name == "configuser" and argument is None:
-            self.status = "User name: "
-            self._render()
-            user = self._read_command_line(prompt="User name: ")
+            user = self._ask_on_command_line("User name: ")
             if not user:
                 self.status = "User name not saved"
                 return
-            self.status = "Campus (example: madrid, paris, etc...): "
-            self._render()
-            campus = self._read_command_line(prompt="Campus (example: madrid, paris, etc...): ")
+            campus = self._ask_on_command_line(
+                "Campus (example: madrid, paris, etc...): "
+            )
             if not campus:
                 self.status = "Campus not saved"
                 return
